@@ -1,0 +1,67 @@
+[build]
+  publish = ".next"
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NEXT_PRIVATE_TARGET = "server"
+
+# Redirect rules for SEO-friendly URLs
+[[redirects]]
+  from = "/ara"
+  to = "/search"
+  status = 200
+
+[[redirects]]
+  from = "/kategori/:slug"
+  to = "/category/:slug"
+  status = 200
+
+[[redirects]]
+  from = "/ilan/:city/:slug"
+  to = "/business/:city/:slug"
+  status = 200
+
+[[redirects]]
+  from = "/giris"
+  to = "/auth/login"
+  status = 200
+
+[[redirects]]
+  from = "/kayit"
+  to = "/auth/register"
+  status = 200
+
+[[redirects]]
+  from = "/isletme/*"
+  to = "/dashboard/:splat"
+  status = 200
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache static assets
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

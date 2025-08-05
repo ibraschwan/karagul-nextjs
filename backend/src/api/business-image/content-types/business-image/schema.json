@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "business_images",
+  "info": {
+    "singularName": "business-image",
+    "pluralName": "business-images",
+    "displayName": "Business Image",
+    "description": "Images for business galleries"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "caption": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isPrimary": {
+      "type": "boolean",
+      "default": false
+    },
+    "business": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::business.business",
+      "inversedBy": "images"
+    }
+  }
+}
