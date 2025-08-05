@@ -4,8 +4,8 @@
   "info": {
     "singularName": "business",
     "pluralName": "businesses",
-    "displayName": "Business",
-    "description": "Business listings in the directory"
+    "displayName": "İşletme",
+    "description": "Rehberdeki işletme kayıtları"
   },
   "options": {
     "draftAndPublish": true

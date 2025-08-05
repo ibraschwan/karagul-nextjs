@@ -4,8 +4,8 @@
   "info": {
     "singularName": "business-image",
     "pluralName": "business-images",
-    "displayName": "Business Image",
-    "description": "Images for business galleries"
+    "displayName": "İşletme Görseli",
+    "description": "İşletme galerileri için görseller"
   },
   "options": {
     "draftAndPublish": true

@@ -4,8 +4,8 @@
   "info": {
     "singularName": "contact-message",
     "pluralName": "contact-messages",
-    "displayName": "Contact Message",
-    "description": "Contact messages sent to businesses"
+    "displayName": "İletişim Mesajı",
+    "description": "İşletmelere gönderilen iletişim mesajları"
   },
   "options": {
     "draftAndPublish": true

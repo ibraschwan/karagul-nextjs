@@ -10,11 +10,18 @@ export default ({ env }) => ({
       salt: env('TRANSFER_TOKEN_SALT'),
     },
   },
-  secrets: {
-    encryptionKey: env('ENCRYPTION_KEY'),
+  // Language configuration
+  languages: {
+    defaultLocale: 'tr',
+    locales: ['tr', 'en'],
   },
-  flags: {
-    nps: env.bool('FLAG_NPS', true),
-    promoteEE: env.bool('FLAG_PROMOTE_EE', true),
+  // Internationalization settings
+  internationalization: {
+    enabled: true,
+    defaultLocale: 'tr',
+  },
+  // Custom admin panel branding
+  head: {
+    title: 'Karagül Ajans - Yönetim Paneli',
   },
 });
