@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'your-strapi-domain.com',
+        hostname: 'correct-power-c76e32eaa4.strapiapp.com',
         port: '',
         pathname: '/uploads/**',
       },

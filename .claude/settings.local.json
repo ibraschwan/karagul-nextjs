@@ -3,7 +3,8 @@
     "allow": [
       "Bash(rm:*)",
       "Bash(npm install)",
-      "Bash(npm run develop:*)"
+      "Bash(npm run develop:*)",
+      "Bash(gh repo create:*)"
     ],
     "deny": []
   }
