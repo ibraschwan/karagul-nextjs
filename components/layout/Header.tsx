@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { getCurrentUserProfile, signOut } from '@/lib/auth'
-import type { User } from '@/types/supabase'
+import { getCurrentUser, logoutUser } from '@/lib/auth'
+import type { User } from '@/lib/auth'
 
 export default function Header() {
   const [user, setUser] = useState<User | null>(null)
@@ -12,12 +12,12 @@ export default function Header() {
   const router = useRouter()
 
   useEffect(() => {
-    getCurrentUserProfile().then(setUser)
+    getCurrentUser().then(setUser)
   }, [])
 
   const handleSignOut = async () => {
     try {
-      await signOut()
+      logoutUser()
       setUser(null)
       router.push('/')
       router.refresh()

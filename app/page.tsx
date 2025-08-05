@@ -1,45 +1,43 @@
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
-import type { BusinessWithCategories, Category } from '@/types/supabase'
+import { businessApi, categoryApi } from '@/lib/strapi'
+import type { Business, Category } from '@/types/strapi'
 
 // Server component to fetch data
-async function getFeaturedBusinesses(): Promise<BusinessWithCategories[]> {
-  const { data, error } = await supabase
-    .from('businesses')
-    .select(`
-      *,
-      business_categories (
-        categories (*)
-      ),
-      business_images (*)
-    `)
-    .eq('status', 'approved')
-    .eq('is_featured', true)
-    .order('created_at', { ascending: false })
-    .limit(6)
-
-  if (error) {
+async function getFeaturedBusinesses(): Promise<Business[]> {
+  try {
+    const response = await businessApi.getAll({
+      filters: {
+        status: { $eq: 'approved' },
+        isFeatured: { $eq: true }
+      },
+      populate: ['categories', 'images', 'logo'],
+      sort: ['createdAt:desc'],
+      pagination: { limit: 6 }
+    })
+    
+    return response.data || []
+  } catch (error) {
     console.error('Error fetching featured businesses:', error)
     return []
   }
-
-  return data || []
 }
 
 async function getCategories(): Promise<Category[]> {
-  const { data, error } = await supabase
-    .from('categories')
-    .select('*')
-    .is('parent_id', null)
-    .eq('is_active', true)
-    .order('order', { ascending: true })
-
-  if (error) {
+  try {
+    const response = await categoryApi.getAll({
+      filters: {
+        parentCategory: { $null: true },
+        isActive: { $eq: true }
+      },
+      sort: ['order:asc'],
+      populate: '*'
+    })
+    
+    return response.data || []
+  } catch (error) {
     console.error('Error fetching categories:', error)
     return []
   }
-
-  return data || []
 }
 
 export default async function HomePage() {
@@ -158,9 +156,15 @@ export default async function HomePage() {
             {featuredBusinesses.map((business) => (
               <div key={business.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-                  {business.business_images?.[0] ? (
+                  {business.images?.[0] ? (
                     <img
-                      src={business.business_images[0].image_url}
+                      src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${business.images[0].image.url}`}
+                      alt={business.name}
+                      className="w-full h-48 object-cover"
+                    />
+                  ) : business.logo ? (
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${business.logo.url}`}
                       alt={business.name}
                       className="w-full h-48 object-cover"
                     />
